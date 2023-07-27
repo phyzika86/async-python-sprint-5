@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+
+  file_app:
+    container_name: file_app
+    image: file_app
+    build: .
+    command: uvicorn src.main:app --host 0.0.0.0
+    volumes:
+      - .:/opt/src
+    ports:
+      - "8008:8000"
+    depends_on:
+      - postgres_app
+
+  postgres_app:
+    image: postgres
+    environment:
+      POSTGRES_DB: "collection"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./downloads:/opt/app/downloads
+    ports:
+      - "8080:80"
+    depends_on:
+      - file_app
+    environment:
+      - NGINX_PORT=80
