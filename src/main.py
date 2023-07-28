@@ -1,3 +1,6 @@
+"""
+Благодарю за ревью и за дельные советы на протяжении всего курса!
+"""
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 
@@ -32,7 +35,6 @@ async def main():
         await conn.run_sync(Base.metadata.create_all)
 
     await engine.dispose()
-    pass
 
 
 if __name__ == '__main__':

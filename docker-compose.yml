@@ -8,8 +8,6 @@ services:
     command: uvicorn src.main:app --host 0.0.0.0
     volumes:
       - .:/opt/src
-    ports:
-      - "8008:8000"
     depends_on:
       - postgres_app
 
@@ -19,8 +17,6 @@ services:
       POSTGRES_DB: "collection"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-    ports:
-      - "5432:5432"
 
   nginx:
     image: nginx

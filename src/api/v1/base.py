@@ -49,8 +49,8 @@ async def create_user(user: UserSchema, db: Session = Depends(get_session)):
 async def user_login(user: UserLoginSchema, db: Session = Depends(get_session)):
     if await check_user(user, db=db):
         return signJWT(user.email)
-    else:
-        await raise_error("не найден login", 404)
+
+    await raise_error("не найден login", 404)
 
 
 @router.post("/upload", description="Загрузка файлов", response_model=FileSchema)
